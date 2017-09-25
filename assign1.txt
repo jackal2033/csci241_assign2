@@ -1,0 +1,320 @@
+/*
+Program: Assign 1
+Programmer: Chase Pranga
+Zid:z1788222
+Due Date: 14 September 2017
+*/
+using namespace std;
+#include <iostream>
+#include <iomanip>
+#include <fstream>
+#include <cstdlib>
+#include <cstring>
+#include <string>
+class Provider
+{
+	private:
+		//the private variables used
+		char id[7];
+		char specialty[41];
+		char name[41];
+		char address1[41];
+		char address2[31];
+		char city[21];
+		char state[3];
+		char zipcode[6];
+		char phone[15];
+	public:
+		//Constructors
+		Provider();
+
+		//Accessor methods
+		void setId(const char*);
+		const char* getId();
+		void setSpecialty(const char*);
+		const char* getSpecialty();
+		void setName(const char*);
+		const char* getName();
+		void setAddress1(const char*);
+		const char* getAddress1();
+		void setAddress2(const char*);
+		const char* getAddress2();
+		void setCity(const char*);
+		const char* getCity();
+		void setState(const char*);
+		const char* getState();
+		void setZipcode(const char*);
+		const char* getZipcode();
+		void setPhone(const char*);
+		const char* getPhone();
+};
+//the prototypes
+int buildProviderArray(Provider []);
+void printProviderArray(Provider [],int);
+
+int main()
+{
+	int countProviders=0;//counts the number of providers
+	Provider providerArray[40];	
+	countProviders = buildProviderArray(providerArray);
+	//cout<<countProviders;
+	printProviderArray(providerArray,countProviders);
+}
+/*
+Purpose:builds the Provider array so that I am able to PRINT IT OUT NICELY
+Arguments: a providr array
+Returns:an int representing the number of valied arrays
+*/
+int buildProviderArray(Provider providerArray[])
+{
+	string temp;//temporary string variable to hold values
+	string  id , specialty, lastname,firstname,initial,address1,address2,city,state,zipcode,phone,title, fullname;
+        //creates and opens the input file
+        ifstream inFile;
+        inFile.open("providers.csv");
+	int count= 0;//used to know which data name is being entered
+	int index=0;//used to know which index of providers array
+	//the deliminators that will be used for getline
+	char delim = ',';
+	char delim2='\n';
+	//loop to process he file into the arrray
+	while(getline(inFile,id,delim))
+	{
+		
+		//these lines, as well as the while condition,store text into the variables
+		getline(inFile,specialty,delim);
+		getline(inFile,lastname,delim);
+		getline(inFile,firstname,delim);
+		getline(inFile,initial,delim);
+		getline(inFile,title,delim);
+		getline(inFile,address1,delim);
+		getline(inFile,address2,delim);
+		getline(inFile,city,delim);
+		getline(inFile,state,delim);
+		getline(inFile,zipcode,delim);
+		getline(inFile,phone);
+		fullname= lastname + ", "+firstname +" ";
+		//adds middle intitial if present
+		if(initial!=" ")
+		{
+			fullname+=initial;
+		}
+		fullname+=", "+title;
+		//these lines set all of the values of the Provider array
+		providerArray[index].setId(id.c_str());
+		providerArray[index].setSpecialty(specialty.c_str());
+		providerArray[index].setName(fullname.c_str());
+		providerArray[index].setAddress1(address1.c_str());
+		providerArray[index].setAddress2(address2.c_str());
+		providerArray[index].setCity(city.c_str());
+		providerArray[index].setState(state.c_str());
+		providerArray[index].setZipcode(zipcode.c_str());
+		providerArray[index].setPhone(phone.c_str());
+		
+		index++;
+		count++;
+		
+	}
+	return count;
+}
+
+/*
+Purpose:prints out all of the values of the provider array nicely
+Arguments: the provider array and int representing how many valid indexes
+Returns:nada
+*/
+void printProviderArray(Provider providerArray[],int count)
+{
+	for(int i=0;i<count;i++)
+	{
+		
+		cout<<"#"<<providerArray[i].getId()<<'\n';
+		cout<<providerArray[i].getName()<<'\n';
+		cout<<providerArray[i].getSpecialty()<<'\n';
+		cout<<providerArray[i].getAddress1()<<'\n';
+		cout<<providerArray[i].getAddress2()<<'\n';
+		cout<<providerArray[i].getCity()<<", ";
+		cout<<providerArray[i].getState()<<' ';
+		cout<<providerArray[i].getZipcode()<<'\n';
+		cout<<providerArray[i].getPhone()<<'\n';
+		cout<<'\n';
+	}
+}
+
+/*Accessor methods for Provider class
+ID values
+*/
+Provider::Provider()
+{
+}
+/*
+Purpose: sends the id variable
+Arguments: nada
+Returns:the id variable
+*/
+const char* Provider::getId()
+{
+	return id;	
+}
+/*
+Purpose: sets the id variable
+Arguments: the new value for the variable
+Returns:nada
+*/
+void Provider::setId(const char* value)
+{
+	strcpy(id,value);
+}
+//Specialty
+/*
+Purpose: sends the specialty variable
+Arguments: nada
+Returns:the specialty variable
+*/
+const char* Provider::getSpecialty()
+{
+	return specialty;	
+}
+/*
+Purpose: sets the specialty variable
+Arguments: the new value for the variable
+Returns:nada
+*/
+void Provider::setSpecialty(const char* value)
+{
+	strcpy(specialty,value);
+}
+//name
+/*
+Purpose: sends the name variable
+Arguments: nada
+Returns:the name variable
+*/
+const char* Provider::getName()
+{
+	return name;	
+}
+/*
+Purpose: sets the name variable
+Arguments: the new value for the variable
+Returns:nada
+*/
+void Provider::setName(const char* value)
+{
+	strcpy(name,value);
+}
+//address1
+/*
+Purpose: sends the address1 variable
+Arguments: nada
+Returns:the address1 variable
+*/
+const char* Provider::getAddress1()
+{
+	return address1;	
+}
+/*
+Purpose: sets the address1 variable
+Arguments: the new value for the variable
+Returns:nada
+*/
+void Provider::setAddress1(const char* value)
+{
+	strcpy(address1,value);
+}
+//address2'
+/*
+Purpose: sends the address2 variable
+Arguments: nada
+Returns:the address2 variable
+*/
+const char* Provider::getAddress2()
+{
+	return address2;	
+}
+/*
+Purpose: sets the address2 variable
+Arguments: the new value for the variable
+Returns:nada
+*/
+void Provider::setAddress2(const char* value)
+{
+	strcpy(address2,value);
+}
+//city
+/*
+Purpose: sends the city variable
+Arguments: nada
+Returns:the city variable
+*/
+const char* Provider::getCity()
+{
+	return city;	
+}
+/*
+Purpose: sets the city variable
+Arguments: the new value for the variable
+Returns:nada
+*/
+void Provider::setCity(const char* value)
+{
+	strcpy(city,value);
+}
+//state
+/*
+Purpose: sends the state variable
+Arguments: nada
+Returns:the state variable
+*/
+const char* Provider::getState()
+{
+	return state;	
+}
+/*
+Purpose: sets the state variable
+Arguments: the new value for the variable
+Returns:nada
+*/
+void Provider::setState(const char* value)
+{
+	strcpy(state,value);
+}
+//zipcode
+/*
+Purpose: sends the zipcode variable
+Arguments: nada
+Returns:the zipcode variable
+*/
+const char* Provider::getZipcode()
+{
+	return zipcode;	
+}
+/*
+Purpose: sets the zipcode variable
+Arguments: the new value for the variable
+Returns:nada
+*/
+void Provider::setZipcode(const char* value)
+{
+	strcpy(zipcode,value);
+}
+//phone
+/*
+Purpose: sends the phone variable
+Arguments: nada
+Returns:the phone variable
+*/
+const char* Provider::getPhone()
+{
+	return phone;	
+}
+/*
+Purpose: sets the phone variable
+Arguments: the new value for the variable
+Returns:nada
+*/
+void Provider::setPhone(const char* value)
+{
+	strcpy(phone,value);
+}
+
